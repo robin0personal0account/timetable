@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBA (H) - IMBA Semester III Exam Timetable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #2d3436;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #495057, #6c757d, #adb5bd);
+        }
+        
+        .university-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #212529;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .school-name {
+            font-size: 24px;
+            color: #495057;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .program-name {
+            font-size: 20px;
+            color: #6c757d;
+            font-weight: 500;
+            background: #f1f3f5;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+        }
+        
+        .exam-title {
+            text-align: center;
+            margin-bottom: 50px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .exam-title h2 {
+            font-size: 32px;
+            color: #212529;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .exam-title p {
+            font-size: 20px;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .exam-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #e9ecef;
+        }
+        
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            padding: 25px;
+            color: #212529;
+            position: relative;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .card-body h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #212529;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-details {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .card-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #495057;
+            font-size: 16px;
+        }
+        
+        .card-details li i {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f3f5;
+            border-radius: 6px;
+            color: #495057;
+        }
+        
+        .card-date {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: #212529;
+        }
+        
+        .card-day {
+            font-size: 14px;
+            background: #e9ecef;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            color: #495057;
+        }
+        
+        .note-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+            border-left: 4px solid #adb5bd;
+            position: relative;
+            border: 1px solid #e9ecef;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #212529;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+        }
+        
+        .note-content {
+            color: #495057;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .signature {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .signature p {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .signature-line {
+            height: 1px;
+            width: 80%;
+            background: #dee2e6;
+            margin: 25px auto;
+        }
+        
+        .signature-title {
+            color: #495057;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: 18px;
+        }
+        
+        .special-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-card::after {
+            content: 'Special Timing';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #6c757d;
+            color: white;
+            padding: 6px 35px;
+            font-size: 14px;
+            transform: rotate(45deg);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        
+        .calendar-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.1;
+            color: #212529;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .exam-title h2 {
+                font-size: 26px;
+            }
+            
+            .university-name {
+                font-size: 28px;
+            }
+            
+            .school-name {
+                font-size: 22px;
+            }
+            
+            .signatures {
+                flex-direction: column;
+            }
+            
+            header, .exam-title {
+                padding: 20px;
+            }
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #495057;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(73, 80, 87, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .floating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(73, 80, 87, 0.4);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #f1f3f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #495057;
+            font-size: 32px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .card-highlight {
+            border-left: 4px solid #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1 class="university-name">SHREYARTH UNIVERSITY</h1>
+            <h2 class="school-name">School of Management</h2>
+            <h3 class="program-name">BBA(H) – Integrated BBA-MBA Semester III</h3>
+        </header>
+        
+        <div class="exam-title">
+            <h2><i class="fas fa-calendar-alt"></i> Mid-Semester Examination September 2025</h2>
+            <p><i class="far fa-clock"></i> Time: 02:00PM to 03:15PM (Unless Specified Otherwise)</p>
+        </div>
+        
+        <div class="cards-container">
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 02.09.2025
+                        <span class="card-day">Tuesday</span>
+                    </div>
+                    <i class="fas fa-users calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-users"></i> Human Resource Management</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> HRM201-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 03.09.2025
+                        <span class="card-day">Wednesday</span>
+                    </div>
+                    <i class="fas fa-calculator calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-calculator"></i> Cost and Management Account</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> FIM201-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 04.09.2025
+                        <span class="card-day">Thursday</span>
+                    </div>
+                    <i class="fas fa-chart-line calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-chart-line"></i> Financial Management</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> FIM202-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight special-card">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 05.09.2025
+                        <span class="card-day">Friday</span>
+                    </div>
+                    <i class="fas fa-laptop-code calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-laptop-code"></i> Computer Based Accounting</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> SEC201-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 09:00AM to 12:00PM</li>
+                        <li><i class="fas fa-laptop"></i> <strong>Type:</strong> Practical Exam</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <strong>Room:</strong> 901 (B)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 08.09.2025
+                        <span class="card-day">Monday</span>
+                    </div>
+                    <i class="fas fa-user-graduate calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-user-graduate"></i> Personality Development</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> AEC201-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 09.09.2025
+                        <span class="card-day">Tuesday</span>
+                    </div>
+                    <i class="fas fa-digital-tachograph calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-digital-tachograph"></i> Digital Marketing</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> MDC203-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-card card-highlight">
+                <div class="card-header">
+                    <div class="card-date">
+                        <i class="far fa-calendar"></i> 10.09.2025
+                        <span class="card-day">Wednesday</span>
+                    </div>
+                    <i class="fas fa-gem calendar-icon"></i>
+                </div>
+                <div class="card-body">
+                    <h3><i class="fas fa-gem"></i> Indian Knowledge System-II</h3>
+                    <ul class="card-details">
+                        <li><i class="fas fa-code"></i> <strong>Course Code:</strong> IKS201-2C</li>
+                        <li><i class="far fa-clock"></i> <strong>Time:</strong> 02:00PM to 03:15PM</li>
+                        <li><i class="fas fa-book"></i> <strong>Type:</strong> Written Exam</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note-box">
+            <div class="note-title">
+                <i class="fas fa-exclamation-circle"></i> Important Note:
+            </div>
+            <p class="note-content">The Examination timing for the subject "Computer Based Accounting" is 09:00AM to 12:00PM. All students are instructed to take seats in room no: 901 (B) by 8:30AM.</p>
+        </div>
+        
+        <div class="signatures">
+            <div class="signature">
+                <div class="signature-line"></div>
+                <p>(Prof. Krupal Acharya)</p>
+                <p class="signature-title">Mid-Semester Exam Coordinator</p>
+                <p>School of Management</p>
+                <p>Shreyarth University</p>
+            </div>
+            
+            <div class="signature">
+                <div class="signature-line"></div>
+                <p>(Dr. Pallavi Agarwal)</p>
+                <p class="signature-title">Head of Department</p>
+                <p>School of Management</p>
+                <p>Shreyarth University</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-btn">
+        <i class="fas fa-calendar-check"></i>
+    </div>
+
+    <script>
+        // Simple animation for cards when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.exam-card');
+            
+            cards.forEach((card, index) => {
+                // Add delay based on index for staggered animation
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+            
+            // Floating button functionality
+            const floatingBtn = document.querySelector('.floating-btn');
+            floatingBtn.addEventListener('click', function() {
+                alert('Exporting timetable as PDF...');
+            });
+        });
+    </script>
+</body>
+</html>
